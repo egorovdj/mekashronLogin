@@ -1,0 +1,138 @@
+﻿@page "/"
+
+<PageTitle>Log in</PageTitle>
+
+@using System.ComponentModel.DataAnnotations
+@using System.Text.Json
+@using mekashronLogin.Data
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager NavigationManager
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <h1>Log in</h1>
+            <EditForm Model="@Input" OnSubmit="@Login">
+            @if (IsLogin)
+            {
+                <div>
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <h2>Use a mekashron account to log in.</h2>
+                    <hr />
+                    <div class="text-danger">@errorResult?.ResultMessage</div>
+                    <div class="form-floating">
+                        <input @bind="Input.Email" class="form-control" type="email" autocomplete="username" aria-required="true" />
+                        <label class="form-label">User</label>
+                    </div>
+                    <div class="form-floating">
+                        <input @bind="Input.Password" class="form-control" type="password" autocomplete="current-password" aria-required="true" />
+                        <label class="form-label">Password</label>
+                    </div>
+                    <div>
+                        <button id="login-submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <h2 class="text-success">User a mekashron account data.</h2>
+                    <hr />
+                    <div class="form-floating">
+                        <input @bind="userModel.FirstName" class="form-control" disabled />
+                        <label class="form-label text-success">FirstName</label>
+                    </div>
+                    <div class="form-floating">
+                        <input @bind="userModel.LastName" class="form-control" disabled />
+                        <label class="form-label text-success">LastName</label>
+                    </div>
+                    <div class="form-floating">
+                        <input @bind="userModel.Email" class="form-control" disabled />
+                        <label class="form-label text-success">Email</label>
+                    </div>
+                    <div class="form-floating">
+                        <input @bind="userModel.CountryID" class="form-control" disabled />
+                        <label class="form-label text-success">CountryID</label>
+                    </div>
+                    <div class="form-floating">
+                        <input @bind="userModel.Mobile" class="form-control" disabled />
+                        <label class="form-label text-success">Mobile</label>
+                    </div>
+                </div>
+            }
+            </EditForm>
+        </section>
+    </div>
+</div>
+
+@code {
+    public class InputModel
+    {
+        [Required]
+        [EmailAddress]
+        public string? Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string? Password { get; set; }
+    }
+    public class ErrorResult
+    {
+        public int ResultCode { get; set; }
+        public string? ResultMessage { get; set; }
+    }
+    private InputModel? Input { get; set; } = new InputModel();
+    private UserModel? userModel { get; set; } = new UserModel();
+    ErrorResult? errorResult { get; set; } = new ErrorResult();
+    private bool IsLogin { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsLogin = true;
+    }
+    protected async void Login()
+    {
+        var editContext = new EditContext(Input);
+        if (editContext.Validate())
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://isapi.icu-tech.com/icutech-test.dll/SOAP");
+            request.Content = new StringContent($"<?xml version=\"1.0\" encoding=\"UTF-8\"?><env:Envelope xmlns:env=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns1=\"urn:ICUTech.Intf-IICUTech\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:enc=\"http://www.w3.org/2003/05/soap-encoding\"><env:Body><ns1:Login env:encodingStyle=\"http://www.w3.org/2003/05/soap-encoding\"><UserName xsi:type=\"xsd:string\">{Input.Email}</UserName><Password xsi:type=\"xsd:string\">{Input.Password}</Password><IPs xsi:type=\"xsd:string\"></IPs></ns1:Login></env:Body></env:Envelope>");
+            request.Content.Headers.Remove("Content-Type");
+            request.Content.Headers.Add("Content-Type", "text/xml; charset=\"utf-8\"");
+            request.Content.Headers.Add("SOAPAction", "urn:ICUTech.Intf-IICUTech#Login");
+            var client = ClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseStream = await response.Content.ReadAsStringAsync();
+                var start = responseStream.IndexOf("<return xsi:type=\"xsd:string\">");
+                var stop = responseStream.IndexOf("</return>");
+                var ret = responseStream.Substring(start + 30, stop - start - 30);
+                errorResult = JsonSerializer.Deserialize<ErrorResult>(ret);
+                if (errorResult.ResultMessage == null)
+                {
+                    userModel = JsonSerializer.Deserialize<UserModel>(ret);
+                    IsLogin = false;
+                }
+                else
+                {
+                    IsLogin = true;
+                }
+            }
+            else
+            {
+                errorResult.ResultMessage = response.ReasonPhrase;
+                IsLogin = true;
+            }
+        }
+        else
+        {
+            errorResult.ResultMessage = string.Join("\n\r", editContext.GetValidationMessages());
+            IsLogin = true;
+        }
+        StateHasChanged();
+    }
+}

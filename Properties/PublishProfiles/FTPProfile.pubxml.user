@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAli5k4OvbL0udxT3+wk0cCAAAAAACAAAAAAAQZgAAAAEAACAAAABc/pudcBuEmN7lmBs9WXCI9YmsWnc7oEqR9sfQV58wsQAAAAAOgAAAAAIAACAAAADSc4NJ+YN3lnG/EQlQ7intfJ9fBS37T1194eU+GVkwHyAAAABgUstwNYBWTsQ1dc1D10+PCxi3ojyQaRyKeFGtTbdh4kAAAAC5gCx/CxBAybHgup0HqlkYpWHAOHgfY5hw2uF3SzgvYO6zPT+ELh3BliS2qIWEW7Hsgi25dxULYsXwWtf1UCmV</EncryptedPassword>
+    <_PublishTargetUrl>ftp://ftp.mekashron-web2eac.1gb.ru/http</_PublishTargetUrl>
+    <History>True|2022-09-28T09:25:37.1537042Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="mekashronLogin.deps.json">
+      <publishTime>09/28/2022 12:25:13</publishTime>
+    </File>
+    <File Include="mekashronLogin.dll">
+      <publishTime>09/28/2022 12:25:12</publishTime>
+    </File>
+    <File Include="mekashronLogin.exe">
+      <publishTime>09/28/2022 12:25:12</publishTime>
+    </File>
+    <File Include="mekashronLogin.pdb">
+      <publishTime>09/28/2022 12:25:12</publishTime>
+    </File>
+    <File Include="mekashronLogin.runtimeconfig.json">
+      <publishTime>09/28/2022 12:25:13</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>09/28/2022 12:25:15</publishTime>
+    </File>
+    <File Include="wwwroot/css/bootstrap/bootstrap.min.css">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/bootstrap/bootstrap.min.css.map">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/FONT-LICENSE">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/css/open-iconic-bootstrap.min.css">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.eot">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.otf">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.svg">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.ttf">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.woff">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/ICON-LICENSE">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/README.md">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.css">
+      <publishTime>09/28/2022 05:54:51</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>12/07/2013 05:04:28</publishTime>
+    </File>
+    <File Include="wwwroot/mekashronLogin.styles.css">
+      <publishTime>09/28/2022 12:25:13</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
